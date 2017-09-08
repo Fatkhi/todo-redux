@@ -20,7 +20,7 @@ class Todo extends Component {
 	}
 
 	toggleEditing () {
-		this.setState( { isEditing: !this.state.isEditing } );
+		this.setState( (prevState) => ( { isEditing: !prevState.isEditing} ));
 	}
 
 	handleChange(e) {
@@ -41,11 +41,7 @@ class Todo extends Component {
 	}
 
 	submitValue(value) {
-		this.props.editTodo({
-			id: this.props.id,
-			text: value,
-			completed: this.props.completed
-		})
+		this.props.editTodo(this.props.id, value);
 	}
 
 	componentDidUpdate() {
@@ -54,12 +50,21 @@ class Todo extends Component {
 	}
 
 	render() {
+		let classes = '';
+		if (this.state.isEditing) classes += 'editing ';
+		if (this.props.completed) classes += 'completed';
+
 		return (
-			<li className={ this.state.isEditing ? 'editing' : '' }>
+			<li className={ classes }>
 				<div className="view">
-					<input className="toggle" type="checkbox" />
+					<input
+					 className="toggle" 
+					 type="checkbox" 
+					 checked={ this.props.completed }
+					 onChange={ this.props.toggleTodo }
+					/>
 					<label onDoubleClick={ this.toggleEditing }>{ this.props.text }</label>
-					<button className="destroy" />
+					<button onClick={ this.props.deleteTodo } className="destroy" />
 				</div>
 				<input 
 					className="edit"

@@ -17,12 +17,17 @@ export const toggleTodo = id => {
 	}
 }
 
-export const editTodo = todo => {
-	console.log(todo);
+export const editTodo = (id, text) => {
 	return {
 		type: 'EDIT_TODO',
-		payload: {
-			...todo
-		}
+		id,
+		text
+	}
+}
+
+export const deleteTodo = id => {
+	return {
+		type: 'DELETE_TODO',
+		id
 	}
 }
