@@ -15,6 +15,13 @@ const todos = (state = [], action) => {
 				}
 				return todo;
 			});
+		case 'TOGGLE_ALL':
+			return state.map(todo => {
+				return {
+					...todo,
+					completed: action.completed
+				}
+			});
 		case 'EDIT_TODO':
 			return state.map(todo => {
 				if (todo.id === action.id) {

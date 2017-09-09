@@ -1,9 +1,7 @@
 import TodoList from '../components/TodoList';
-import { editTodo } from '../actions';
-import { toggleTodo } from '../actions';
-import { deleteTodo } from '../actions';
-import { connect } from 'react-redux';
+import { editTodo, toggleTodo, deleteTodo, toggleAll } from '../actions';
 import { SHOW_ACTIVE, SHOW_COMPLETED, SHOW_ALL } from '../actions';
+import { connect } from 'react-redux';
 
 const filterTodos = (todos, filter) => {
 	switch (filter) {
@@ -18,7 +16,9 @@ const filterTodos = (todos, filter) => {
 
 const mapStateToProps = state => {
 	return {
-		todos: filterTodos(state.todos, state.visibilityFilter)
+		todos: filterTodos(state.todos, state.visibilityFilter),
+		activeCount: state.todos.filter( todo => !todo.completed ).length,
+		hasTodos: !!state.todos.length
 	}
 }
 
@@ -32,6 +32,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		deleteTodo: id => {
 			dispatch(deleteTodo(id));
+		},
+		toggleAll: completed => {
+			dispatch(toggleAll(completed));
 		}
 	}
 }

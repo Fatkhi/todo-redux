@@ -48,3 +48,14 @@ export const clearCompleted = () => {
 		type: 'CLEAR_COMPLETED'
 	}
 }
+
+export const toggleAll = completed => {
+	console.log({
+		type: 'TOGGLE_ALL',
+		completed
+	});
+	return {
+		type: 'TOGGLE_ALL',
+		completed
+	}
+}
